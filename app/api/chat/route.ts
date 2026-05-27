@@ -7,6 +7,13 @@ import type { BuyerPhase, StoredDocument } from "@/lib/types";
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
+  if (process.env.AI_FEATURES_ENABLED !== "true") {
+    return new Response(
+      "AI features are currently disabled for privacy. Enable AI_FEATURES_ENABLED only after a privacy review.",
+      { status: 503 }
+    );
+  }
+
   const chatLimit = rateLimit({
     key: `chat:${getClientId(req)}`,
     limit: 30,
