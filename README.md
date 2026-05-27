@@ -78,8 +78,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 11. Test signup, login, checklist persistence, document upload, Kimi chat, clear chat, and document deletion.
 12. Promote to production.
 
-Vercel will use `pnpm install` because this repo includes `pnpm-lock.yaml`.
-
 ## Notes
 
 - Document text injected into the assistant prompt is limited to 3,000 characters per document.
