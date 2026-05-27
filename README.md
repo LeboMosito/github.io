@@ -1,13 +1,13 @@
 # HomeReady AI
 
-HomeReady AI is a premium-feeling first-time homebuyer assistant focused on Tennessee THDA Great Choice buyers. It includes an AI chat assistant, document review, phase tracker, checklist, glossary, affordability calculator, guest mode, and optional Supabase persistence.
+HomeReady AI is a premium-feeling first-time homebuyer assistant focused on Tennessee THDA Great Choice buyers. It includes privacy-first document storage, a phase tracker, checklist, glossary, affordability calculator, guest mode, optional Supabase persistence, and an AI assistant that is disabled by default.
 
 ## Stack
 
 - Next.js 14 App Router
 - Tailwind CSS
 - Supabase auth and database
-- Vercel AI SDK with Kimi / Moonshot AI
+- Vercel AI SDK with optional Kimi / Moonshot AI
 - PDF parsing with `pdf-parse`
 - DOCX parsing with `mammoth`
 
@@ -24,6 +24,8 @@ npm install
 ```bash
 MOONSHOT_API_KEY=
 KIMI_MODEL=kimi-k2.6
+AI_FEATURES_ENABLED=false
+NEXT_PUBLIC_AI_FEATURES_ENABLED=false
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
@@ -36,7 +38,7 @@ npm run dev
 
 4. Open `http://localhost:3000`.
 
-Guest mode works without Supabase keys. Kimi chat requires `MOONSHOT_API_KEY`.
+Guest mode works without Supabase keys. AI chat requires `MOONSHOT_API_KEY`, `AI_FEATURES_ENABLED=true`, and `NEXT_PUBLIC_AI_FEATURES_ENABLED=true`.
 
 ## Supabase Schema
 
@@ -70,6 +72,8 @@ For public launch, add a scheduled cleanup job that permanently deletes rows whe
 ```bash
 MOONSHOT_API_KEY=
 KIMI_MODEL=kimi-k2.6
+AI_FEATURES_ENABLED=false
+NEXT_PUBLIC_AI_FEATURES_ENABLED=false
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
@@ -80,9 +84,10 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 
 ## Notes
 
-- Document text injected into the assistant prompt is limited to 3,000 characters per document.
+- AI features are disabled by default. Do not enable them until you have reviewed consent, retention, redaction, and provider data-use rules.
+- Document text injected into the assistant prompt is limited to 3,000 characters per document when AI is enabled.
 - Uploads are limited to 10 MB and restricted to PDF, DOCX, JPG, PNG, WEBP, HEIC, and HEIF files.
-- Uploaded document text is redacted for likely SSNs, routing-number-like values, and long account-number-like values before being stored or sent to Kimi.
+- Uploaded document text is redacted for likely SSNs, routing-number-like values, and long account-number-like values before being stored and before any AI request.
 - Chat and upload API routes include basic in-memory rate limits for family-app usage. Use Redis-backed rate limiting before public launch.
 - Signed-in document, checklist, and conversation writes go through server routes instead of direct browser table writes.
 - Users can clear chat history, delete uploaded documents, and clear guest data from the UI.
