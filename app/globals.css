@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --font-dm-sans: "DM Sans";
+  --font-instrument-serif: "Instrument Serif";
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: #f7f5ef;
+}
+
+.dark body {
+  background: #07111f;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 168, 76, 0.55) transparent;
+}
